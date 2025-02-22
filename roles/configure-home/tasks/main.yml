@@ -1,26 +1,26 @@
 ---
-- name: Pull down dotfiles
+- name: Clone dotfiles repo
   ansible.builtin.git:
-    repo: 'https://github.com/l0g-lab/dotfiles'
+    repo: "{{ dotfiles_repo }}"
     dest: $HOME/dotfiles
     update: true
 
-- name: Check on what configs to apply
+- name: Check what is installed
   block:
-    - name: Check for i3
+    - name: Check for i3 installation
       ansible.builtin.stat:
         path: $HOME/.config/i3
-      register: is_i3
+      register: is_i3_installed
 
-    - name: Check for fluxbox
+    - name: Check for fluxbox installation
       ansible.builtin.stat:
         path: $HOME/.fluxbox
-      register: is_fluxbox
+      register: is_fluxbox_installed
 
-    - name: Check for spectrwm
+    - name: Check for spectrwm installation
       ansible.builtin.stat:
         path: $HOME/.spectrwm
-      register: is_spectrwm
+      register: is_spectrwm_installed
 
 - name: Link config files
   block:
@@ -58,7 +58,7 @@
         dest: $HOME/.config/i3
         state: link
         force: true
-      when: is_i3.stat.isdir is defined
+      when: is_i3_installed.stat.isdir is defined
 
     - name: Link config files | fluxbox
       ansible.builtin.file:
@@ -66,7 +66,7 @@
         dest: $HOME/.fluxbox
         state: link
         force: true
-      when: is_fluxbox.stat.isdir is defined
+      when: is_fluxbox_installed.stat.isdir is defined
 
     - name: Link config files | spectrwm
       ansible.builtin.file:
@@ -74,4 +74,20 @@
         dest: $HOME/.spectrwm.conf
         state: link
         force: true
-      when: is_spectrwm.stat.isdir is defined
+      when: is_spectrwm_installed.stat.isdir is defined
+
+- name: CentOS specific configs
+  ansible.builtin.include_tasks: ./centos.yml
+  when: ansible_distribution == "CentOS"
+
+- name: Fedora specific configs
+  ansible.builtin.include_tasks: ./fedora.yml
+  when: ansible_distribution == 'Fedora'
+
+- name: Ubuntu specific configs
+  ansible.builtin.include_tasks: ./ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Debian specific configs
+  ansible.builtin.include_tasks: debian.yml
+  when: ansible_distribution == 'Debian'
