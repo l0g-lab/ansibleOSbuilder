@@ -1,12 +1,12 @@
 ---
-- name: Import package list
-  ansible.builtin.include_vars: packages.yml
-
 - name: Update apt repo/cache
   become: true
   ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 3600
+
+- name: Import package list
+  ansible.builtin.include_vars: packages.yml
 
 - name: Install tools from common
   become: true
@@ -14,7 +14,7 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - "{{ package_list[common] }}"
+    - "{{ package_list.all_os }}"
 
 - name: Install tools specific to debian
   become: true

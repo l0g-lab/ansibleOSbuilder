@@ -1,8 +1,4 @@
 ---
-- name: Load package list
-  vars_files:
-    - packages.yml
-
 - name: CentOS
   ansible.builtin.include_tasks: ./centos.yml
   when: ansible_distribution == "CentOS"

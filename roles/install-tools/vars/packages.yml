@@ -1,6 +1,6 @@
 ---
 package_list:
-  common:
+  all_os:
     - tmux
     - vim
     - nmap
@@ -33,14 +33,15 @@ package_list:
     - wireshark
     - exiftool
     - flameshot
+    - graphicsmagick
+
   CentOS:
 
   Fedora:
 
   Debian:
     - firefox-esr
-    - netcat-bsd
-    - graphicsmagick
+    - netcat-openbsd
 
   Ubuntu:
 
