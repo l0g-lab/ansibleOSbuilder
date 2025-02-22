@@ -79,8 +79,7 @@
 - name: Create directory to hold custom scripts
   ansible.builtin.file:
     path: $HOME/.local/bin
-    owner: "{{ ansible_facts.env.USER }}"
-    state: directory
+    state: absent
     
 - name: Install custom utils
   ansible.builtin.file:
