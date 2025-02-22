@@ -1,0 +1,47 @@
+---
+package_list:
+  - os: CentOS
+
+  - os: Fedora
+
+  - os: Debian
+    packages:
+      - tmux
+      - vim
+      - nmap
+      - firefox-esr
+      - bc
+      - netcat-bsd
+      - binwalk
+      - bleachbit
+      - curl
+      - wget
+      - jq
+      - graphicsmagick
+      - gzip
+      - p7zip
+      - hydra
+      - keepassxc
+      - make
+      - gcc
+      - ncftp
+      - mplayer
+      - mousepad
+      - openvpn
+      - openssh-client
+      - python3
+      - python3-pip
+      - remmina
+      - rsync
+      - seahorse
+      - socat
+      - telnet
+      - vlc
+      - whois
+      - wireshark
+      - exiftool
+      - flameshot
+
+  - os: Ubuntu
+
+  - os: Archlinux

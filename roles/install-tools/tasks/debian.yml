@@ -5,92 +5,11 @@
     update_cache: true
     cache_valid_time: 3600
 
-- name: Setup Docker
-  block:
-    - name: Uninstall built-in Docker if installed
-      become: true
-      ansible.builtin.package:
-        name: "{{ item }}"
-        state: absent
-      loop:
-        - docker.io
-        - docker-compose
-        - docker-doc
-        - docker-compose
-        - podman-compose
-        - containerd
-        - runc
-
-    - name: Add Docker keyring to apt
-      become: true
-      ansible.builtin.apt_key:
-        url: "https://download.docker.com/linux/debian/gpg"
-        state: present
-
-    - name: Install Docker repository
-      become: true
-      ansible.builtin.apt_repository:
-        repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
-        state: present
-        update_cache: true
-
-    - name: Install Docker
-      become: true
-      ansible.builtin.apt:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - docker-ce
-        - docker-ce-cli
-        - containerd.io
-        - docker-buildx-plugin
-        - docker-compose-plugin
-
-    - name: Start and enable Docker
-      become: true
-      ansible.builtin.service:
-        name: docker
-        state: started
-        enabled: true
-
 - name: Install tools from standard repo
   become: true
   ansible.builtin.apt:
-    name: "{{ item }}"
+    name: "{{ item.packages }}"
     state: present
-    update_cache: true
   loop:
-    - tmux
-    - vim
-    - nmap
-    - firefox-esr
-    - bc
-    - netcat-openbsd
-    - binwalk
-    - bleachbit
-    - curl
-    - wget
-    - jq
-    - graphicsmagick
-    - gzip
-    - p7zip
-    - hydra
-    - keepassxc
-    - make
-    - ncftp
-    - mplayer
-    - mousepad
-    - nmap
-    - openvpn
-    - openssh-client
-    - python3
-    - remmina
-    - rsync
-    - seahorse
-    - socat
-    - telnet
-    - vlc
-    - whois
-    - wireshark
-    - exiftool
-    - flameshot
+    - "{{ package_list }}"
+  when: ansible_os_family == item.os
