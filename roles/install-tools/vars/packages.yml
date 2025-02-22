@@ -1,47 +1,47 @@
 ---
 package_list:
-  - os: CentOS
+  common:
+    - tmux
+    - vim
+    - nmap
+    - bc
+    - binwalk
+    - bleachbit
+    - curl
+    - wget
+    - jq
+    - gzip
+    - p7zip
+    - hydra
+    - keepassxc
+    - make
+    - gcc
+    - ncftp
+    - mplayer
+    - mousepad
+    - openvpn
+    - openssh-client
+    - python3
+    - python3-pip
+    - remmina
+    - rsync
+    - seahorse
+    - socat
+    - telnet
+    - vlc
+    - whois
+    - wireshark
+    - exiftool
+    - flameshot
+  CentOS:
 
-  - os: Fedora
+  Fedora:
 
-  - os: Debian
-    packages:
-      - tmux
-      - vim
-      - nmap
-      - firefox-esr
-      - bc
-      - netcat-bsd
-      - binwalk
-      - bleachbit
-      - curl
-      - wget
-      - jq
-      - graphicsmagick
-      - gzip
-      - p7zip
-      - hydra
-      - keepassxc
-      - make
-      - gcc
-      - ncftp
-      - mplayer
-      - mousepad
-      - openvpn
-      - openssh-client
-      - python3
-      - python3-pip
-      - remmina
-      - rsync
-      - seahorse
-      - socat
-      - telnet
-      - vlc
-      - whois
-      - wireshark
-      - exiftool
-      - flameshot
+  Debian:
+    - firefox-esr
+    - netcat-bsd
+    - graphicsmagick
 
-  - os: Ubuntu
+  Ubuntu:
 
-  - os: Archlinux
+  Archlinux:
