@@ -1,10 +1,11 @@
 ---
 - name: Customize OS
+  gather_facts: true
   become_method: sudo
   hosts: localhost
   connection: local
   roles:
-    - configure-utils
+    - configure-home
     - install-tools
     - customize-browser
     - configure-logging
