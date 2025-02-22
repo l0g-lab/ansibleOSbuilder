@@ -25,8 +25,12 @@ You'll find individual playbooks in the `playbooks` directory to apply single co
     $ source .venv/bin/activate
     $ pip3 install ansible
     ```
+3. Get a sudo token
+    ```bash
+    $ sudo -l
+    ```
 
-3. Run the ansible playbook to deploy the configurations:
+4. Run the ansible playbook to deploy the configurations:
     ```bash
     $ ansible-playbook main.yml
     ```
