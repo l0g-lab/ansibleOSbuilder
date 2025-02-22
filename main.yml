@@ -1,5 +1,6 @@
 ---
 - name: Customize OS
+  become_method: sudo
   hosts: localhost
   connection: local
   roles:

@@ -1,5 +1,6 @@
 ---
 - name: Update apt repo/cache
+  become: true
   ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 3600
@@ -7,6 +8,7 @@
 - name: Setup Docker
   block:
     - name: Uninstall built-in Docker if installed
+      become: true
       ansible.builtin.package:
         name: "{{ item }}"
         state: absent
@@ -20,17 +22,20 @@
         - runc
 
     - name: Add Docker keyring to apt
+      become: true
       ansible.builtin.apt_key:
         url: "https://download.docker.com/linux/debian/gpg"
         state: present
 
     - name: Install Docker repository
+      become: true
       ansible.builtin.apt_repository:
         repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
         state: present
         update_cache: true
 
     - name: Install Docker
+      become: true
       ansible.builtin.apt:
         name: "{{ item }}"
         state: present
@@ -42,6 +47,7 @@
         - docker-compose-plugin
 
 - name: Install tools from standard repo
+  become: true
   ansible.builtin.apt:
     name: "{{ item }}"
     state: present
