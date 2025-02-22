@@ -1,5 +1,11 @@
 # ansibleOSbuilder
 
+## Information
+
+This repository includes a `main.yml` play which will deploy all configurations against your localhost
+
+You'll find individual playbooks in the `playbooks` directory to apply single configurations. This is useful if you only want to install the packages, or only apply certain configurations to your system.
+
 ## Instructions
 
 1. Clone the repo:
