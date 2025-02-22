@@ -76,6 +76,18 @@
         force: true
       when: is_spectrwm_installed.stat.isdir is defined
 
+- name: Create directory to hold custom scripts
+  ansible.builtin.file:
+    path: $HOME/.local/bin
+    owner: "{{ ansible_user }}"
+    
+- name: Install custom utils
+  ansible.builtin.file:
+    src: $HOME/dotfiles/local/bin
+    dest: $HOME/.local/bin
+    state: link
+    force: true
+
 - name: CentOS specific configs
   ansible.builtin.include_tasks: ./centos.yml
   when: ansible_distribution == "CentOS"
