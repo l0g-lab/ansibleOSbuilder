@@ -46,6 +46,13 @@
         - docker-buildx-plugin
         - docker-compose-plugin
 
+    - name: Start and enable Docker
+      become: true
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
 - name: Install tools from standard repo
   become: true
   ansible.builtin.apt:
