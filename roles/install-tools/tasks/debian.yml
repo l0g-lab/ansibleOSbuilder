@@ -1,0 +1,39 @@
+---
+- name: Install tools from standard repo
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+    - tmux
+    - vim
+    - nmap
+    - firefox-esr
+    - bc
+    - netcat-openbsd
+    - binwalk
+    - bleachbit
+    - curl
+    - wget
+    - jq
+    - graphicsmagick
+    - gzip
+    - p7zip
+    - hydra
+    - keepassxc
+    - make
+    - ncftp
+    - mplayer
+    - mousepad
+    - nmap
+    - openvpn
+    - openssh-client
+    - python3
+    - remmina
+    - rsync
+    - seahorse
+    - socat
+    - telnet
+    - vlc
+    - whois
+    - wireshark

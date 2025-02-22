@@ -1,0 +1,10 @@
+---
+- name: Customize OS
+  hosts: localhost
+  connection: local
+  roles:
+    - configure-utils
+    - install-tools
+    - customize-browser
+    - configure-logging
+    - configure-system

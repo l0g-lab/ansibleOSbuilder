@@ -1,0 +1,77 @@
+---
+- name: Pull down dotfiles
+  ansible.builtin.git:
+    repo: 'https://github.com/l0g-lab/dotfiles'
+    dest: $HOME/dotfiles
+    update: true
+
+- name: Check on what configs to apply
+  block:
+    - name: Check for i3
+      ansible.builtin.stat:
+        path: $HOME/.config/i3
+      register: is_i3
+
+    - name: Check for fluxbox
+      ansible.builtin.stat:
+        path: $HOME/.fluxbox
+      register: is_fluxbox
+
+    - name: Check for spectrwm
+      ansible.builtin.stat:
+        path: $HOME/.spectrwm
+      register: is_spectrwm
+
+- name: Link config files
+  block:
+    - name: Link config files | bashrc
+      ansible.builtin.file:
+        src: $HOME/dotfiles/bashrc
+        dest: $HOME/.bashrc
+        state: link
+        force: true
+
+    - name: Link config files | tmux.conf
+      ansible.builtin.file:
+        src: $HOME/dotfiles/tmux.conf
+        dest: $HOME/.tmux.conf
+        state: link
+        force: true
+
+    - name: Link config files | vimrc
+      ansible.builtin.file:
+        src: $HOME/dotfiles/vimrc
+        dest: $HOME/.vimrc
+        state: link
+        force: true
+
+    - name: Link config files | Xdefaults
+      ansible.builtin.file:
+        src: $HOME/dotfiles/Xdefaults
+        dest: $HOME/.Xdefaults
+        state: link
+        force: true
+
+    - name: Link config files | i3
+      ansible.builtin.file:
+        src: $HOME/dotfiles/i3
+        dest: $HOME/.config/i3
+        state: link
+        force: true
+      when: is_i3.stat.isdir is defined
+
+    - name: Link config files | fluxbox
+      ansible.builtin.file:
+        src: $HOME/dotfiles/fluxbox
+        dest: $HOME/.fluxbox
+        state: link
+        force: true
+      when: is_fluxbox.stat.isdir is defined
+
+    - name: Link config files | spectrwm
+      ansible.builtin.file:
+        src: $HOME/dotfiles/spectrwm.conf
+        dest: $HOME/.spectrwm.conf
+        state: link
+        force: true
+      when: is_spectrwm.stat.isdir is defined
