@@ -12,4 +12,5 @@
     state: present
   loop:
     - spectrwm
+    - conky
     - xscreensaver
