@@ -3,22 +3,9 @@
   ansible.builtin.include_role:
     name: download-dotfiles
 
-- name: Check what is installed
-  block:
-    - name: Check for i3 installation
-      ansible.builtin.stat:
-        path: $HOME/.config/i3
-      register: is_i3_installed
-
-    - name: Check for fluxbox installation
-      ansible.builtin.stat:
-        path: $HOME/.fluxbox
-      register: is_fluxbox_installed
-
-    - name: Check for spectrwm installation
-      ansible.builtin.stat:
-        path: $HOME/.spectrwm
-      register: is_spectrwm_installed
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
 
 - name: Link config files
   block:
@@ -56,7 +43,7 @@
         dest: $HOME/.config/i3
         state: link
         force: true
-      when: is_i3_installed.stat.isdir is defined
+      when: "'i3' in ansible_facts.packages"
 
     - name: Link config files | fluxbox
       ansible.builtin.file:
@@ -64,7 +51,7 @@
         dest: $HOME/.fluxbox
         state: link
         force: true
-      when: is_fluxbox_installed.stat.isdir is defined
+      when: "'fluxbox' in ansible_facts.packages"
 
     - name: Link config files | spectrwm
       ansible.builtin.file:
@@ -72,7 +59,7 @@
         dest: $HOME/.spectrwm.conf
         state: link
         force: true
-      when: is_spectrwm_installed.stat.isdir is defined
+      when: "'spectrwm' in ansible_facts.packages"
 
 - name: Create directory to hold custom scripts
   ansible.builtin.file:

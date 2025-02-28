@@ -4,9 +4,8 @@
     name: download-dotfiles
 
 - name: Check for i3 installation
-  ansible.builtin.stat:
-    path: $HOME/.config/i3
-  register: is_i3_installed
+  ansible.builtin.package_facts:
+    manager: auto
 
 - name: Link config files | i3
   ansible.builtin.file:
@@ -14,4 +13,4 @@
     dest: $HOME/.config/i3
     state: link
     force: true
-  when: is_i3_installed.stat.isdir is defined
+  when: "'i3' in ansible_facts.packages"

@@ -4,9 +4,8 @@
     name: download-dotfiles
 
 - name: Check for fluxbox installation
-  ansible.builtin.stat:
-    path: $HOME/.fluxbox
-  register: is_fluxbox_installed
+  ansible.builtin.package_facts:
+    manager: auto
 
 - name: Link config files | fluxbox
   ansible.builtin.file:
@@ -14,4 +13,4 @@
     dest: $HOME/.fluxbox
     state: link
     force: true
-  when: is_fluxbox_installed.stat.isdir is defined
+  when: "'fluxbox' in ansible_facts.packages"
