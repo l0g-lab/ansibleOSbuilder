@@ -1,0 +1,6 @@
+---
+- name: Clone dotfiles repo
+  ansible.builtin.git:
+    repo: "{{ dotfiles_repo }}"
+    dest: $HOME/dotfiles
+    update: true

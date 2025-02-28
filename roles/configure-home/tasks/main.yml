@@ -1,9 +1,7 @@
 ---
 - name: Clone dotfiles repo
-  ansible.builtin.git:
-    repo: "{{ dotfiles_repo }}"
-    dest: $HOME/dotfiles
-    update: true
+  ansible.builtin.include_role:
+    name: download-dotfiles
 
 - name: Check what is installed
   block:

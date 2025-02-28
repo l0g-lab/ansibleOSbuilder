@@ -1,0 +1,17 @@
+---
+- name: Clone dotfiles repo
+  ansible.builtin.include_role: 
+    name: roles/download-dotfiles
+
+- name: Check for spectrwm installation
+  ansible.builtin.stat:
+    path: $HOME/.spectrwm
+  register: is_spectrwm_installed
+
+- name: Link config files | spectrwm
+  ansible.builtin.file:
+    src: $HOME/dotfiles/spectrwm.conf
+    dest: $HOME/.spectrwm.conf
+    state: link
+    force: true
+  when: is_spectrwm_installed.stat.isdir is defined
